@@ -10,4 +10,4 @@ output*
 build/
 dist*
 logs/
-
+*.db
