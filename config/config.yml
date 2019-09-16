@@ -1,0 +1,28 @@
+service:
+  group: SosMedico
+  name: service-registry
+  version: 0.1.0
+api:
+  endpoint:
+    port: 9687
+    baseRoutingPath: /sreg
+  security:
+    enabled: true
+    jwt:
+      secret:   R7mT6PaYxC1cfnaDvT51jLWP7fcLaOoMmkxoaaTgZUo7GFv8lcbzm7LJzytHggAU
+      expiration:
+        enabled: true
+        minutes: 13149000
+log:
+  path: logs
+  filename: service-registry.log
+  console: true
+  level: debug
+  json: false
+  maxSize: 5
+  maxAge: 60
+  maxBackups: 90
+  compress: true
+  caller: false
+
+
