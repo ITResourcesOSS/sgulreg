@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"time"
 
 	"github.com/ITResourcesOSS/sgulreg/internal/services/serializers"
 
@@ -41,10 +40,7 @@ func (rs *registryService) Register(ctx context.Context, r dto.ServiceRegistrati
 		return dto.ServiceRegistrationResponse{}, err
 	}
 
-	return dto.ServiceRegistrationResponse{
-		InstanceID:            service.InstanceID,
-		RegistrationTimestamp: time.Unix(service.RegistrationTimestamp, 0),
-	}, nil
+	return serializers.NewServiceRegistrationResponse(service), nil
 }
 
 func (rs *registryService) Discovery(ctx context.Context, name string) (dto.ServiceInfoResponse, error) {
