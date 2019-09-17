@@ -5,7 +5,7 @@ service:
 api:
   endpoint:
     port: 9687
-    baseRoutingPath: /sreg
+    baseRoutingPath: /
   security:
     enabled: true
     jwt:

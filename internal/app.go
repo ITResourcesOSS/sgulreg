@@ -1,22 +1,29 @@
 package internal
 
 import (
-	"log"
-
-	"github.com/ITResourcesOSS/sgulreg/internal/registry"
+	"github.com/ITResourcesOSS/sgul"
+	"github.com/ITResourcesOSS/sgulreg/internal/repositories"
+	"github.com/ITResourcesOSS/sgulreg/internal/services"
+	"github.com/boltdb/bolt"
 )
+
+var logger = sgul.GetLogger().Sugar()
 
 // Application .
 type Application struct {
-	reg *registry.Registry
+	db *bolt.DB
 }
 
 // NewApp .
-func NewApp(reg *registry.Registry) *Application {
-	return &Application{reg: reg}
+func NewApp(db *bolt.DB) *Application {
+	return &Application{db: db}
 }
 
 // Start .
 func (app *Application) Start() {
-	log.Println("Application started...")
+	serviceRepository := repositories.NewServiceRepository(app.db)
+	registry := services.NewRegistry(serviceRepository)
+	server := NewServer(registry)
+	logger.Info("http server set up. Start serving")
+	server.Serve()
 }

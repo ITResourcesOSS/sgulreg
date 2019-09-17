@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/ITResourcesOSS/sgulreg/internal"
-	"github.com/ITResourcesOSS/sgulreg/internal/registry"
 	"github.com/boltdb/bolt"
 	"github.com/spf13/cobra"
 )
@@ -38,6 +37,6 @@ func start(args []string) {
 	}
 	logger.Info("internal service registry database (BoltDB instance) inizialized")
 
-	r := registry.New(db)
-	internal.NewApp(r).Start()
+	//r := registry.New(db)
+	internal.NewApp(db).Start()
 }
