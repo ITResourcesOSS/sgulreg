@@ -2,6 +2,7 @@ package sgulreg
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net"
@@ -13,7 +14,7 @@ import (
 
 // ServiceRegistryClient .
 type ServiceRegistryClient interface {
-	Register(request ServiceRegistrationRequest) (ServiceRegistrationResponse, error)
+	Register(ctx context.Context, request ServiceRegistrationRequest) (ServiceRegistrationResponse, error)
 }
 
 type serviceRegistryClient struct {
@@ -41,7 +42,30 @@ func NewServiceRegistryClient(registryHost string, l *zap.SugaredLogger) Service
 	}
 }
 
-func (c *serviceRegistryClient) Register(request ServiceRegistrationRequest) (ServiceRegistrationResponse, error) {
+/*
+TO PASS HEADERS:
+url := "http://restapi3.apiary.io/notes"
+    fmt.Println("URL:>", url)
+
+    var jsonStr = []byte(`{"title":"Buy cheese and bread for breakfast."}`)
+    req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+    req.Header.Set("X-Custom-Header", "myvalue")
+    req.Header.Set("Content-Type", "application/json")
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    if err != nil {
+        panic(err)
+    }
+    defer resp.Body.Close()
+
+    fmt.Println("response Status:", resp.Status)
+    fmt.Println("response Headers:", resp.Header)
+    body, _ := ioutil.ReadAll(resp.Body)
+    fmt.Println("response Body:", string(body))
+*/
+// Register .
+func (c *serviceRegistryClient) Register(ctx context.Context, request ServiceRegistrationRequest) (ServiceRegistrationResponse, error) {
 	jsonRequest, _ := json.Marshal(request)
 	res, err := c.httpClient.Post("http://"+c.registryHost+"/services", "application/json", bytes.NewBuffer(jsonRequest))
 	if err != nil {
