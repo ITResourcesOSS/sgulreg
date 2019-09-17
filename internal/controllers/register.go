@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ITResourcesOSS/sgulreg/internal/controllers/dto"
 	"github.com/ITResourcesOSS/sgulreg/internal/services"
+	"github.com/ITResourcesOSS/sgulreg/pkg/sgulreg"
 
 	"github.com/ITResourcesOSS/sgul"
 	"github.com/go-chi/chi"
@@ -47,7 +47,7 @@ func (rc *RegisterController) register(w http.ResponseWriter, r *http.Request) {
 	requestID := middleware.GetReqID(r.Context())
 	logger.Infow("Request to register service instance for ", "request-id", requestID)
 
-	registrationRequest := dto.ServiceRegistrationRequest{}
+	registrationRequest := sgulreg.ServiceRegistrationRequest{}
 	err := json.NewDecoder(r.Body).Decode(&registrationRequest)
 	if err != nil {
 		logger.Errorw("Error validating request", "error", err, "request-id", requestID)
@@ -63,7 +63,7 @@ func (rc *RegisterController) register(w http.ResponseWriter, r *http.Request) {
 		"healthCheckUrl", registrationRequest.HealthCheckURL,
 		"request-id", requestID)
 
-	var response dto.ServiceRegistrationResponse
+	var response sgulreg.ServiceRegistrationResponse
 	if response, err = rc.registry.Register(r.Context(), registrationRequest); err != nil {
 		logger.Errorw("error registering service instance", "error", err, "request-id", requestID)
 		rc.RenderError(w, sgul.NewHTTPError(err, http.StatusInternalServerError, "Unable to register service instance", requestID))
@@ -79,7 +79,7 @@ func (rc *RegisterController) discover(w http.ResponseWriter, r *http.Request) {
 	serviceName := chi.URLParam(r, "serviceName")
 	logger.Infow("Request to discover service", "serviceName", serviceName, "request-id", requestID)
 
-	var discoveryResponse dto.ServiceInfoResponse
+	var discoveryResponse sgulreg.ServiceInfoResponse
 	var err error
 	if discoveryResponse, err = rc.registry.Discovery(r.Context(), serviceName); err != nil {
 		render.Status(r, http.StatusInternalServerError)

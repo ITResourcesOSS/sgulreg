@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ITResourcesOSS/sgulreg/internal/controllers/dto"
+	"github.com/ITResourcesOSS/sgulreg/pkg/sgulreg"
 )
 
 // Service is the service info struct to be saved in registry.
@@ -20,7 +20,7 @@ type Service struct {
 }
 
 // NewService returns a new instance of the Service model from Service registration request.
-func NewService(r dto.ServiceRegistrationRequest) *Service {
+func NewService(r sgulreg.ServiceRegistrationRequest) *Service {
 	timestamp := time.Now().Unix()
 	return &Service{
 		InstanceID:            fmt.Sprintf("%s@%s", r.Name, r.Host),
