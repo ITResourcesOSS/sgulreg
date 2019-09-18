@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/ITResourcesOSS/sgul/sgulreg"
 	"github.com/ITResourcesOSS/sgulreg/internal/services"
-	"github.com/ITResourcesOSS/sgulreg/pkg/sgulreg"
 
 	"github.com/ITResourcesOSS/sgul"
 	"github.com/go-chi/chi"

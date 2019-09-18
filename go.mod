@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/766b/chi-logger v0.0.0-20180309043024-d2679d398ce4
-	github.com/ITResourcesOSS/sgul v0.0.0-20190916092935-419076b80970
+	github.com/ITResourcesOSS/sgul v0.0.0-20190918095543-26a42da802fd
 	github.com/boltdb/bolt v1.3.1
 	github.com/go-chi/chi v4.0.2+incompatible
 	github.com/go-chi/cors v1.0.0

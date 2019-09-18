@@ -6,6 +6,8 @@ github.com/766b/chi-logger v0.0.0-20180309043024-d2679d398ce4/go.mod h1:688livvc
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/ITResourcesOSS/sgul v0.0.0-20190916092935-419076b80970 h1:Ikx+k+kOuRzHj5Rjuiea++YUAW657tDcI4r3lq3pMAk=
 github.com/ITResourcesOSS/sgul v0.0.0-20190916092935-419076b80970/go.mod h1:LpqJe3ZTwv+R/PsPe7vzUAtLhlZzUS+lHXgx2tk2dxs=
+github.com/ITResourcesOSS/sgul v0.0.0-20190918095543-26a42da802fd h1:GeLXqpzhoGCAIomFGAE14TnHJXA22qZiQkpdtbBmmzY=
+github.com/ITResourcesOSS/sgul v0.0.0-20190918095543-26a42da802fd/go.mod h1:LpqJe3ZTwv+R/PsPe7vzUAtLhlZzUS+lHXgx2tk2dxs=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWXgklEdEo=
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
