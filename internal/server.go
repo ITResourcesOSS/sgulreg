@@ -26,7 +26,7 @@ func NewServer(r services.Registry) *Server {
 
 	cors := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "OPTIONS", "DELETE"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "OPTIONS", "DELETE", "HEAD"},
 		AllowedHeaders: []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 	})
 
