@@ -5,7 +5,7 @@ service:
 api:
   endpoint:
     port: 9687
-    baseRoutingPath: /
+    baseRoutingPath: /sgulreg
   security:
     enabled: true
     jwt:
