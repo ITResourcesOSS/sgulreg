@@ -14,6 +14,8 @@ github.com/ITResourcesOSS/sgul v0.0.0-20190918101952-ca7b2a76291c h1:ryBnWp9XLUh
 github.com/ITResourcesOSS/sgul v0.0.0-20190918101952-ca7b2a76291c/go.mod h1:LpqJe3ZTwv+R/PsPe7vzUAtLhlZzUS+lHXgx2tk2dxs=
 github.com/ITResourcesOSS/sgul v0.0.0-20190918132349-f0cc8c29fe56 h1:irqXqTOMd+17oafJE6+FRbmUrSLv4JgcVM9Xrtqyp2Y=
 github.com/ITResourcesOSS/sgul v0.0.0-20190918132349-f0cc8c29fe56/go.mod h1:LpqJe3ZTwv+R/PsPe7vzUAtLhlZzUS+lHXgx2tk2dxs=
+github.com/ITResourcesOSS/sgul v0.0.0-20190919073324-a43034044b50 h1:apF/qwGn2fC0bOMSFkoxfBVnCYj+0PjNZo9rLkaWQro=
+github.com/ITResourcesOSS/sgul v0.0.0-20190919073324-a43034044b50/go.mod h1:LpqJe3ZTwv+R/PsPe7vzUAtLhlZzUS+lHXgx2tk2dxs=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWXgklEdEo=
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
