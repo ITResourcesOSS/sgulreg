@@ -41,6 +41,22 @@ func (rc *RegisterController) Router() chi.Router {
 func (rc *RegisterController) all(w http.ResponseWriter, r *http.Request) {
 	requestID := middleware.GetReqID(r.Context())
 	logger.Infow("Request to get all Services information", "request-id", requestID)
+
+	var discoveryResponse []sgulreg.ServiceInfoResponse
+	var err error
+	if discoveryResponse, err = rc.registry.DiscoverAll(r.Context()); err != nil {
+		render.Status(r, http.StatusInternalServerError)
+		render.JSON(w, r, nil)
+		return
+	}
+	if len(discoveryResponse) == 0 {
+		render.Status(r, http.StatusNoContent)
+		render.JSON(w, r, nil)
+		return
+	}
+
+	render.Status(r, http.StatusOK)
+	render.JSON(w, r, discoveryResponse)
 }
 
 func (rc *RegisterController) register(w http.ResponseWriter, r *http.Request) {
@@ -81,7 +97,7 @@ func (rc *RegisterController) discover(w http.ResponseWriter, r *http.Request) {
 
 	var discoveryResponse sgulreg.ServiceInfoResponse
 	var err error
-	if discoveryResponse, err = rc.registry.Discovery(r.Context(), serviceName); err != nil {
+	if discoveryResponse, err = rc.registry.Discover(r.Context(), serviceName); err != nil {
 		render.Status(r, http.StatusInternalServerError)
 		render.JSON(w, r, nil)
 		return

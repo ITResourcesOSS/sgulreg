@@ -17,6 +17,7 @@ var logger = sgul.GetLogger().Sugar()
 type ServiceRepository interface {
 	Save(ctx context.Context, service *model.Service) error
 	FindAllByServiceName(ctx context.Context, name string) ([]*model.Service, error)
+	FindAll(ctx context.Context) ([]*model.Service, error)
 }
 
 type serviceRepository struct {
@@ -62,6 +63,22 @@ func (sr *serviceRepository) FindAllByServiceName(ctx context.Context, name stri
 			json.Unmarshal(v, &s)
 			instances = append(instances, s)
 		}
+		return nil
+	})
+
+	return instances, err
+}
+
+func (sr *serviceRepository) FindAll(ctx context.Context) ([]*model.Service, error) {
+	var instances []*model.Service
+	err := sr.db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("services"))
+		b.ForEach(func(k, v []byte) error {
+			var s *model.Service
+			json.Unmarshal(v, &s)
+			instances = append(instances, s)
+			return nil
+		})
 		return nil
 	})
 

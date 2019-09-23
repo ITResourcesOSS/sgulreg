@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/ITResourcesOSS/sgul/sgulreg"
 	"github.com/ITResourcesOSS/sgulreg/internal/services/serializers"
@@ -19,7 +20,8 @@ var logger = sgul.GetLogger().Sugar()
 // Registry defines the interface to be implemented for a Service Registry.
 type Registry interface {
 	Register(ctx context.Context, r sgulreg.ServiceRegistrationRequest) (sgulreg.ServiceRegistrationResponse, error)
-	Discovery(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error)
+	Discover(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error)
+	DiscoverAll(ctx context.Context) ([]sgulreg.ServiceInfoResponse, error)
 }
 
 type registryService struct {
@@ -43,7 +45,7 @@ func (rs *registryService) Register(ctx context.Context, r sgulreg.ServiceRegist
 	return serializers.NewServiceRegistrationResponse(service), nil
 }
 
-func (rs *registryService) Discovery(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error) {
+func (rs *registryService) Discover(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error) {
 	requestID := middleware.GetReqID(ctx)
 	logger.Infow("discovering service", "service", name, "request-id", requestID)
 
@@ -54,4 +56,39 @@ func (rs *registryService) Discovery(ctx context.Context, name string) (sgulreg.
 	}
 
 	return serializers.NewServiceInfoResponse(name, instances), nil
+}
+
+func (rs *registryService) DiscoverAll(ctx context.Context) ([]sgulreg.ServiceInfoResponse, error) {
+	requestID := middleware.GetReqID(ctx)
+	logger.Infow("discovering all service", "request-id", requestID)
+
+	// get all instances
+	var instances []*model.Service
+	var err error
+	if instances, err = rs.serviceRepository.FindAll(ctx); err != nil {
+		return []sgulreg.ServiceInfoResponse{}, err
+	}
+
+	// order all instances in a map by service-name
+	tmpServices := make(map[string][]*model.Service)
+	for _, i := range instances {
+		if _, ok := tmpServices[i.Name]; !ok {
+			tmpServices[i.Name] = []*model.Service{}
+		}
+		tmpServices[i.Name] = append(tmpServices[i.Name], i)
+	}
+	fmt.Printf("\n%+v\n", tmpServices)
+
+	// serialize response
+	response := make([]sgulreg.ServiceInfoResponse, len(tmpServices))
+	idx := 0
+	for k, v := range tmpServices {
+		response[idx] = serializers.NewServiceInfoResponse(k, v)
+		idx = idx + 1
+		if idx > len(tmpServices)+1 {
+			break
+		}
+	}
+
+	return response, nil
 }
