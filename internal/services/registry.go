@@ -2,7 +2,6 @@ package services
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/ITResourcesOSS/sgul/sgulreg"
 	"github.com/ITResourcesOSS/sgulreg/internal/services/serializers"
@@ -77,7 +76,6 @@ func (rs *registryService) DiscoverAll(ctx context.Context) ([]sgulreg.ServiceIn
 		}
 		tmpServices[i.Name] = append(tmpServices[i.Name], i)
 	}
-	fmt.Printf("\n%+v\n", tmpServices)
 
 	// serialize response
 	response := make([]sgulreg.ServiceInfoResponse, len(tmpServices))

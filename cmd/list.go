@@ -3,6 +3,9 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/ITResourcesOSS/sgul/sgulreg"
+	"github.com/ITResourcesOSS/sgulreg/internal/repositories"
+	"github.com/ITResourcesOSS/sgulreg/internal/services"
 	"github.com/boltdb/bolt"
 	"github.com/spf13/cobra"
 )
@@ -33,9 +36,33 @@ func listServices(args []string) {
 	if err != nil && err.Error() != "bucket already exists" {
 		panic(fmt.Errorf("error creating 'services' bucket: %s", err))
 	}
-	logger.Info("internal service registry database (BoltDB instance) inizialized")
 
-	// serviceRepository := repositories.NewServiceRepository(db)
-	// registry := services.NewRegistry(serviceRepository)
+	serviceRepository := repositories.NewServiceRepository(db)
+	registry := services.NewRegistry(serviceRepository)
 
+	var instances []sgulreg.ServiceInfoResponse
+	instances, err = registry.DiscoverAll(nil)
+	if err != nil {
+		panic(err)
+	}
+
+	show(instances)
+}
+
+func show(instances []sgulreg.ServiceInfoResponse) {
+	fmt.Println("\nSgulREG Registered service instances:")
+	fmt.Println("=====================================")
+	for _, i := range instances {
+		fmt.Printf("\n* \"%s\"\n", i.Name)
+		for _, j := range i.Instances {
+			fmt.Printf("\t- instance id: \t%s\n", j.InstanceID)
+			fmt.Printf("\t  host: \t\t%s\n", j.Host)
+			fmt.Printf("\t  scheme: \t\t%s\n", j.Schema)
+			fmt.Printf("\t  info url: \t\t%s\n", j.InfoURL)
+			fmt.Printf("\t  health url: \t\t%s\n", j.HealthCheckURL)
+			fmt.Printf("\t  registration: \t%s\n", j.RegistrationTimestamp)
+			fmt.Printf("\t  last refresh: \t%s\n", j.LastRefreshTimestamp)
+			fmt.Println("\t------------------------------------------------------------")
+		}
+	}
 }

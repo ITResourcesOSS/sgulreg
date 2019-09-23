@@ -10,7 +10,7 @@ import (
 
 var startCommand = &cobra.Command{
 	Use:   "start",
-	Short: "starts the API Gateway",
+	Short: "starts the Service Registry",
 	Long:  "This command configures and starts the API Gateway",
 	Run: func(cmd *cobra.Command, args []string) {
 		start(args)
