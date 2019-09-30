@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ITResourcesOSS/sgul/sgulreg"
+	"github.com/itross/sgul/sgulreg"
 )
 
 // Service is the service info struct to be saved in registry.

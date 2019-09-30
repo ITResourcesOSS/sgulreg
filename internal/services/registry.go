@@ -3,15 +3,15 @@ package services
 import (
 	"context"
 
-	"github.com/ITResourcesOSS/sgul/sgulreg"
-	"github.com/ITResourcesOSS/sgulreg/internal/services/serializers"
+	"github.com/itross/sgul/sgulreg"
+	"github.com/itross/sgulreg/internal/services/serializers"
 
 	"github.com/go-chi/chi/middleware"
 
-	"github.com/ITResourcesOSS/sgul"
-	"github.com/ITResourcesOSS/sgulreg/internal/repositories"
+	"github.com/itross/sgul"
+	"github.com/itross/sgulreg/internal/repositories"
 
-	"github.com/ITResourcesOSS/sgulreg/internal/model"
+	"github.com/itross/sgulreg/internal/model"
 )
 
 var logger = sgul.GetLogger().Sugar()

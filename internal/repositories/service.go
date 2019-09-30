@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ITResourcesOSS/sgul"
-	"github.com/ITResourcesOSS/sgulreg/internal/model"
+	"github.com/itross/sgul"
+	"github.com/itross/sgulreg/internal/model"
 	"github.com/boltdb/bolt"
 )
 

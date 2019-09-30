@@ -3,10 +3,10 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/ITResourcesOSS/sgul/sgulreg"
-	"github.com/ITResourcesOSS/sgulreg/internal/repositories"
-	"github.com/ITResourcesOSS/sgulreg/internal/services"
 	"github.com/boltdb/bolt"
+	reg "github.com/itross/sgul/registry"
+	"github.com/itross/sgulreg/internal/repositories"
+	"github.com/itross/sgulreg/internal/services"
 	"github.com/spf13/cobra"
 )
 
@@ -40,7 +40,7 @@ func listServices(args []string) {
 	serviceRepository := repositories.NewServiceRepository(db)
 	registry := services.NewRegistry(serviceRepository)
 
-	var instances []sgulreg.ServiceInfoResponse
+	var instances []reg.ServiceInfoResponse
 	instances, err = registry.DiscoverAll(nil)
 	if err != nil {
 		panic(err)
@@ -49,7 +49,7 @@ func listServices(args []string) {
 	show(instances)
 }
 
-func show(instances []sgulreg.ServiceInfoResponse) {
+func show(instances []reg.ServiceInfoResponse) {
 	fmt.Println("\nSgulREG Registered service instances:")
 	fmt.Println("=====================================")
 	for _, i := range instances {

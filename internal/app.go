@@ -1,9 +1,9 @@
 package internal
 
 import (
-	"github.com/ITResourcesOSS/sgul"
-	"github.com/ITResourcesOSS/sgulreg/internal/repositories"
-	"github.com/ITResourcesOSS/sgulreg/internal/services"
+	"github.com/itross/sgul"
+	"github.com/itross/sgulreg/internal/repositories"
+	"github.com/itross/sgulreg/internal/services"
 	"github.com/boltdb/bolt"
 )
 

@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ITResourcesOSS/sgul/sgulreg"
-	"github.com/ITResourcesOSS/sgulreg/internal/services"
+	reg "github.com/itross/sgul/registry"
+	"github.com/itross/sgulreg/internal/services"
 
-	"github.com/ITResourcesOSS/sgul"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
+	"github.com/itross/sgul"
 )
 
 var logger = sgul.GetLogger().Sugar()
@@ -45,7 +45,7 @@ func (rc *RegisterController) all(w http.ResponseWriter, r *http.Request) {
 	requestID := middleware.GetReqID(r.Context())
 	logger.Infow("Request to get all Services information", "request-id", requestID)
 
-	var discoveryResponse []sgulreg.ServiceInfoResponse
+	var discoveryResponse []reg.ServiceInfoResponse
 	var err error
 	if discoveryResponse, err = rc.registry.DiscoverAll(r.Context()); err != nil {
 		render.Status(r, http.StatusInternalServerError)
@@ -66,7 +66,7 @@ func (rc *RegisterController) register(w http.ResponseWriter, r *http.Request) {
 	requestID := middleware.GetReqID(r.Context())
 	logger.Infow("Request to register service instance for ", "request-id", requestID)
 
-	registrationRequest := sgulreg.ServiceRegistrationRequest{}
+	registrationRequest := reg.ServiceRegistrationRequest{}
 	err := json.NewDecoder(r.Body).Decode(&registrationRequest)
 	if err != nil {
 		logger.Errorw("Error validating request", "error", err, "request-id", requestID)
@@ -82,7 +82,7 @@ func (rc *RegisterController) register(w http.ResponseWriter, r *http.Request) {
 		"healthCheckUrl", registrationRequest.HealthCheckURL,
 		"request-id", requestID)
 
-	var response sgulreg.ServiceRegistrationResponse
+	var response reg.ServiceRegistrationResponse
 	if response, err = rc.registry.Register(r.Context(), registrationRequest); err != nil {
 		logger.Errorw("error registering service instance", "error", err, "request-id", requestID)
 		rc.RenderError(w, sgul.NewHTTPError(err, http.StatusInternalServerError, "Unable to register service instance", requestID))
@@ -98,7 +98,7 @@ func (rc *RegisterController) discover(w http.ResponseWriter, r *http.Request) {
 	serviceName := chi.URLParam(r, "serviceName")
 	logger.Infow("Request to discover service", "serviceName", serviceName, "request-id", requestID)
 
-	var discoveryResponse sgulreg.ServiceInfoResponse
+	var discoveryResponse reg.ServiceInfoResponse
 	var err error
 	if discoveryResponse, err = rc.registry.Discover(r.Context(), serviceName); err != nil {
 		render.Status(r, http.StatusInternalServerError)

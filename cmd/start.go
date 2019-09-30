@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/ITResourcesOSS/sgulreg/internal"
+	"github.com/itross/sgulreg/internal"
 	"github.com/boltdb/bolt"
 	"github.com/spf13/cobra"
 )

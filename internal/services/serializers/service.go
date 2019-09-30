@@ -3,8 +3,8 @@ package serializers
 import (
 	"time"
 
-	"github.com/ITResourcesOSS/sgul/sgulreg"
-	"github.com/ITResourcesOSS/sgulreg/internal/model"
+	"github.com/itross/sgul/sgulreg"
+	"github.com/itross/sgulreg/internal/model"
 )
 
 // NewServiceRegistrationResponse returns a new registration response.
