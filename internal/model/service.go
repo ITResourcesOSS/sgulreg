@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/itross/sgul/sgulreg"
+	"github.com/itross/sgul/registry"
 )
 
 // Service is the service info struct to be saved in registry.
@@ -20,7 +20,7 @@ type Service struct {
 }
 
 // NewService returns a new instance of the Service model from Service registration request.
-func NewService(r sgulreg.ServiceRegistrationRequest) *Service {
+func NewService(r registry.ServiceRegistrationRequest) *Service {
 	timestamp := time.Now().Unix()
 	return &Service{
 		InstanceID:            fmt.Sprintf("%s@%s", r.Name, r.Host),

@@ -6,12 +6,12 @@ import (
 	"strings"
 
 	chilogger "github.com/766b/chi-logger"
-	"github.com/itross/sgul"
-	"github.com/itross/sgulreg/internal/controllers"
-	"github.com/itross/sgulreg/internal/services"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
+	"github.com/itross/sgul"
+	"github.com/itross/sgulreg/internal/controllers"
+	"github.com/itross/sgulreg/internal/services"
 )
 
 // Server defines the http server struct.

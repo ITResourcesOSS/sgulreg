@@ -32,9 +32,9 @@ func NewRegisterController(r services.Registry) *RegisterController {
 // Router returns routing paths for this ServiceController.
 func (rc *RegisterController) Router() chi.Router {
 	r := chi.NewRouter()
-	r.Head("/", func(w http.ResponseWriter, r *http.Request) {
-		render.Status(r, http.StatusOK)
-	})
+	// r.Head("/", func(w http.ResponseWriter, r *http.Request) {
+	// 	render.Status(r, http.StatusOK)
+	// })
 	r.Post("/", rc.register)
 	r.Get("/", rc.all)
 	r.Get("/{serviceName}", rc.discover)

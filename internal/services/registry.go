@@ -3,7 +3,7 @@ package services
 import (
 	"context"
 
-	"github.com/itross/sgul/sgulreg"
+	reg "github.com/itross/sgul/registry"
 	"github.com/itross/sgulreg/internal/services/serializers"
 
 	"github.com/go-chi/chi/middleware"
@@ -18,9 +18,9 @@ var logger = sgul.GetLogger().Sugar()
 
 // Registry defines the interface to be implemented for a Service Registry.
 type Registry interface {
-	Register(ctx context.Context, r sgulreg.ServiceRegistrationRequest) (sgulreg.ServiceRegistrationResponse, error)
-	Discover(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error)
-	DiscoverAll(ctx context.Context) ([]sgulreg.ServiceInfoResponse, error)
+	Register(ctx context.Context, r reg.ServiceRegistrationRequest) (reg.ServiceRegistrationResponse, error)
+	Discover(ctx context.Context, name string) (reg.ServiceInfoResponse, error)
+	DiscoverAll(ctx context.Context) ([]reg.ServiceInfoResponse, error)
 }
 
 type registryService struct {
@@ -32,32 +32,32 @@ func NewRegistry(sr repositories.ServiceRepository) Registry {
 	return &registryService{serviceRepository: sr}
 }
 
-func (rs *registryService) Register(ctx context.Context, r sgulreg.ServiceRegistrationRequest) (sgulreg.ServiceRegistrationResponse, error) {
+func (rs *registryService) Register(ctx context.Context, r reg.ServiceRegistrationRequest) (reg.ServiceRegistrationResponse, error) {
 	requestID := middleware.GetReqID(ctx)
 	service := model.NewService(r)
 
 	logger.Infow("registering service instance", "instance", service.InstanceID, "request-id", requestID)
 	if err := rs.serviceRepository.Save(ctx, service); err != nil {
-		return sgulreg.ServiceRegistrationResponse{}, err
+		return reg.ServiceRegistrationResponse{}, err
 	}
 
 	return serializers.NewServiceRegistrationResponse(service), nil
 }
 
-func (rs *registryService) Discover(ctx context.Context, name string) (sgulreg.ServiceInfoResponse, error) {
+func (rs *registryService) Discover(ctx context.Context, name string) (reg.ServiceInfoResponse, error) {
 	requestID := middleware.GetReqID(ctx)
 	logger.Infow("discovering service", "service", name, "request-id", requestID)
 
 	var instances []*model.Service
 	var err error
 	if instances, err = rs.serviceRepository.FindAllByServiceName(ctx, name); err != nil {
-		return sgulreg.ServiceInfoResponse{}, err
+		return reg.ServiceInfoResponse{}, err
 	}
 
 	return serializers.NewServiceInfoResponse(name, instances), nil
 }
 
-func (rs *registryService) DiscoverAll(ctx context.Context) ([]sgulreg.ServiceInfoResponse, error) {
+func (rs *registryService) DiscoverAll(ctx context.Context) ([]reg.ServiceInfoResponse, error) {
 	requestID := middleware.GetReqID(ctx)
 	logger.Infow("discovering all service", "request-id", requestID)
 
@@ -65,7 +65,7 @@ func (rs *registryService) DiscoverAll(ctx context.Context) ([]sgulreg.ServiceIn
 	var instances []*model.Service
 	var err error
 	if instances, err = rs.serviceRepository.FindAll(ctx); err != nil {
-		return []sgulreg.ServiceInfoResponse{}, err
+		return []reg.ServiceInfoResponse{}, err
 	}
 
 	// order all instances in a map by service-name
@@ -78,7 +78,7 @@ func (rs *registryService) DiscoverAll(ctx context.Context) ([]sgulreg.ServiceIn
 	}
 
 	// serialize response
-	response := make([]sgulreg.ServiceInfoResponse, len(tmpServices))
+	response := make([]reg.ServiceInfoResponse, len(tmpServices))
 	idx := 0
 	for k, v := range tmpServices {
 		response[idx] = serializers.NewServiceInfoResponse(k, v)
