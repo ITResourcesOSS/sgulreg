@@ -6,12 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/boltdb/bolt"
 	"github.com/itross/sgul"
 	"github.com/itross/sgulreg/internal/model"
-	"github.com/boltdb/bolt"
 )
 
-var logger = sgul.GetLogger().Sugar()
+var logger = sgul.GetLogger()
 
 // ServiceRepository defines the interface for the service info repository.
 type ServiceRepository interface {

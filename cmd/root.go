@@ -39,7 +39,7 @@ func init() {
 
 func initialize() {
 	//conf = sgul.GetConfiguration()
-	logger = sgul.GetLogger().Sugar()
+	logger = sgul.GetLogger()
 	//initRegistry()
 
 	env := strings.ToLower(os.Getenv("ENV"))

@@ -14,7 +14,7 @@ import (
 	"github.com/itross/sgulreg/internal/model"
 )
 
-var logger = sgul.GetLogger().Sugar()
+var logger = sgul.GetLogger()
 
 // Registry defines the interface to be implemented for a Service Registry.
 type Registry interface {

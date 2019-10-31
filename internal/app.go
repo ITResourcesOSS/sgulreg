@@ -1,13 +1,13 @@
 package internal
 
 import (
+	"github.com/boltdb/bolt"
 	"github.com/itross/sgul"
 	"github.com/itross/sgulreg/internal/repositories"
 	"github.com/itross/sgulreg/internal/services"
-	"github.com/boltdb/bolt"
 )
 
-var logger = sgul.GetLogger().Sugar()
+var logger = sgul.GetLogger()
 
 // Application .
 type Application struct {

@@ -9,7 +9,7 @@ require (
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
 	github.com/google/martian v2.1.0+incompatible
-	github.com/itross/sgul v0.0.0-20190930072456-629140a22ea2
+	github.com/itross/sgul v0.0.0-20191021112755-e705edae937b
 	github.com/spf13/cobra v0.0.5
 	go.uber.org/zap v1.10.0
 )

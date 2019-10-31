@@ -13,7 +13,7 @@ import (
 	"github.com/itross/sgul"
 )
 
-var logger = sgul.GetLogger().Sugar()
+var logger = sgul.GetLogger()
 
 // RegisterController defines the Service resource controller for the API.
 type RegisterController struct {

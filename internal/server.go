@@ -35,7 +35,7 @@ func NewServer(r services.Registry) *Server {
 		cors.Handler,
 		middleware.RequestID,
 		middleware.RealIP,
-		chilogger.NewZapMiddleware("router", sgul.GetLogger()),
+		chilogger.NewZapMiddleware("router", sgul.GetLogger().Desugar()),
 		middleware.RedirectSlashes,
 		middleware.Recoverer,
 	)
